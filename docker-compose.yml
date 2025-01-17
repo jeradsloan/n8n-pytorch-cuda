@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  pytorch-n8n:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "5678:5678"  # n8n web interface
+      - "5679:5679"  # webhook port
+      - "8888:8888"  # For Jupyter
+      - "6006:6006"  # For TensorBoard
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ./:/workspace
+      - ./data:/data
+      - ./n8n-data:/root/.n8n
+      - ./node-data:/home/node/.n8n
+    ipc: host
+    tty: true
+    stdin_open: true
+    working_dir: /workspace
+    security_opt:
+      - seccomp=unconfined
+    shm_size: '2gb'
+    environment:
+      # TimeZone
+      - TZ=America/Los_Angeles
+      # PATH for n8n
+      - PATH=/home/node/.local/bin:/usr/local/bin:/usr/bin:/bin:${PATH}
+#      - N8N_PATH=/home/node/.local/bin:/usr/local/bin:/usr/bin:/bin
+#      - N8N_COMMAND_PATH=/home/node/.local/bin:/usr/local/bin:/usr/bin:/bin
+      # Python settings
+      - PYTHONPATH=/workspace
+      - JUPYTER_TOKEN=pytorch
+      # Node settings
+      - NODE_ENV=production
+      - N8N_RELEASE_TYPE=stable
+      - SHELL=/bin/bash
+      - PATH=/usr/local/bin:/usr/bin:/bin
+      - NODE_PATH=/usr/local/lib/node_modules
+      - N8N_USER_FOLDER=/home/node/.n8n
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      # N8N settings
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - N8N_EDITOR_BASE_URL=https://n8n.scrappienet.duckdns.org
+#      - N8N_EDITOR_BASE_URL=http://localhost:5678
+#      - WEBHOOK_URL=http://localhost:5679/
+      - WEBHOOK_URL=https://n8n-webhook.scrappienet.duckdns.org
+      - GENERIC_TIMEZONE=America/Los_Angeles
+      - N8N_REINSTALL_MISSING_PACKAGES=true
+      # Chrome/Puppeteer settings
+      - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+      - PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome
+      - PUPPETEER_ARGS=--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage
+      ## Browserless settings
+    user: "node"

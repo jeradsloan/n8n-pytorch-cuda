@@ -1,0 +1,15 @@
+# Ignore all directories
+*/
+
+# Don't ignore root level files
+!/*
+
+# But still ignore .git directory
+.git/
+
+# Common files to ignore
+.DS_Store
+*.log
+*.pyc
+__pycache__/
+.env 
