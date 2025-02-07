@@ -21,3 +21,7 @@ n8n-data/
 n8n-local-files/
 node-data/
 output/
+
+# Ignore backup and data files
+*.tar.gz
+html/
