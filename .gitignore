@@ -12,4 +12,6 @@
 *.log
 *.pyc
 __pycache__/
-.env 
+.env
+.docker-compose.yml.swp
+node-data/config-2025.02.06.old
