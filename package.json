@@ -1,0 +1,14 @@
+{
+  "name": "n8n-credential-tools",
+  "version": "1.0.0",
+  "description": "Tools for managing n8n credentials",
+  "main": "encrypt_all_credentials.js",
+  "scripts": {
+    "encrypt-all": "node encrypt_all_credentials.js",
+    "encrypt-single": "node encrypt_single_credential.js",
+    "create-csv": "node create_credentials_csv.js"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1"
+  }
+}
