@@ -42,6 +42,31 @@
 - Home Directory: `/home/node`
 - Sudo Access: Yes (passwordless)
 
+## Credential Management Tools
+
+### Encryption Scripts
+- `encrypt_all_credentials.js`: Script to encrypt and import all n8n credentials
+- `encrypt_single_credential.js`: Script to encrypt and import a single credential
+- `create_credentials_csv.js`: Script to create a CSV export of decrypted credentials
+
+These scripts use n8n's encryption method (AES-256-CBC) to properly encrypt credentials for the database. They handle:
+- Key derivation using MD5 hashing
+- Proper IV generation
+- n8n's specific encryption format with salt and prefix bytes
+
+Usage:
+```bash
+# Export decrypted credentials
+docker compose exec pytorch-n8n n8n export:credentials --all --decrypted > decrypted_credentials.json
+
+# Encrypt and import all credentials
+node encrypt_all_credentials.js
+sqlite3 node-data/.n8n/database.sqlite < all_credentials.sql
+
+# Create CSV of credentials
+node create_credentials_csv.js
+```
+
 ## Build Process Optimizations
 - NPM cache cleared before n8n installation
 - Force flag used for n8n installation to ensure latest version

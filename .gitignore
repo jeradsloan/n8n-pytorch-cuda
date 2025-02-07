@@ -22,6 +22,16 @@ n8n-local-files/
 node-data/
 output/
 
+# Credential files
+decrypted_credentials.json
+encrypted_credentials.sql
+all_credentials.sql
+global_constants.sql
+single_credential.sql
+credentials.csv
+*.credentials.json
+*.credentials.sql
+
 # Ignore backup and data files
 *.tar.gz
 html/
