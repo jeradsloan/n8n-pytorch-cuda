@@ -31,5 +31,7 @@ if [ ! -d "$N8N_USER_FOLDER" ]; then
     mkdir -p "$N8N_USER_FOLDER"
 fi
 
+echo "Starting Python HTTP server on port 9901 for /data..."
+cd /data && python -m http.server 9901 --bind 0.0.0.0 &
 echo "Starting n8n..."
 exec n8n start

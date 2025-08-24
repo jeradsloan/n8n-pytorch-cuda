@@ -15,6 +15,7 @@ RUN apt-get update && \
     libpango1.0-dev \
     libgdk-pixbuf2.0-dev \
     shared-mime-info \
+    ffmpeg \
     && \
     mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
@@ -47,7 +48,9 @@ RUN useradd -m -s /bin/bash node && \
     mkdir -p /usr/local/lib/node_modules && \
     chown -R node:node /home/node && \
     chown -R node:node /usr/local/lib/node_modules && \
-    chown -R 1000:1000 /home/node/.npm
+    chown -R 1000:1000 /home/node/.npm && \
+    mkdir -p /home/node/.local && \
+    chown -R node:node /home/node/.local
 
 # Set environment variables
 ENV NODE_ENV=production \

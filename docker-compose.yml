@@ -9,6 +9,7 @@ services:
       - "5679:5679"  # webhook port
       - "8888:8888"  # For Jupyter
       - "6006:6006"  # For TensorBoard
+      - "9901:9901"  # For http server of /data
     deploy:
       resources:
         reservations:
@@ -19,6 +20,7 @@ services:
     volumes:
       - ./:/workspace
       - ./data:/data
+      - /home/piadmin/coding-projects/kodi-mcp:/data/kodi-mcp
       - ./n8n-data:/root/.n8n
       - ./node-data:/home/node/.n8n
     ipc: host
@@ -51,9 +53,10 @@ services:
       - N8N_PORT=5678
       - N8N_PROTOCOL=https
       - N8N_EDITOR_BASE_URL=https://n8n.scrappienet.duckdns.org
+      - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
 #      - N8N_EDITOR_BASE_URL=http://localhost:5678
 #      - WEBHOOK_URL=http://localhost:5679/
-      - WEBHOOK_URL=https://n8n-webhook.scrappienet.duckdns.org
+      - WEBHOOK_URL=https://n8nscrappienet.duckdns.org
       - GENERIC_TIMEZONE=America/Los_Angeles
       - N8N_REINSTALL_MISSING_PACKAGES=true
       # Chrome/Puppeteer settings

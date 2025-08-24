@@ -9,6 +9,8 @@
     "create-csv": "node create_credentials_csv.js"
   },
   "dependencies": {
-    "crypto": "^1.0.1"
+    "@muench-dev/n8n-nodes-bluesky": "^3.0.0",
+    "crypto": "^1.0.1",
+    "zod": "^4.0.14"
   }
 }
