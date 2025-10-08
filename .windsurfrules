@@ -1,0 +1,26 @@
+# N8N PyTorch CUDA Docker Environment
+
+## System Overview
+- **Base Image**: NVIDIA PyTorch 24.01-py3 (Python 3.10, CUDA 12.4+)
+- **Main Service**: Self-hosted n8n automation platform
+- **Container User**: [node](cci:7://file:///home/piadmin/docker_home/n8n-pytorch-cuda/node:0:0-0:0) (UID 1000) with passwordless sudo
+- **GPU Access**: Full NVIDIA GPU support with compute, utility, video capabilities
+
+## Key Technologies
+- **Node.js**: v20.x with n8n (latest stable)
+- **Python**: 3.10 with PyTorch, transformers, opencv, scikit-image
+- **Browser Automation**: Google Chrome + Puppeteer (system Chrome at [/usr/bin/google-chrome](cci:7://file:///usr/bin/google-chrome:0:0-0:0))
+- **Package Manager**: npm (Node), pip (Python), uv (Astral fast Python package manager)
+
+## Critical Paths
+- **N8N Data**: `/home/node/.n8n` (inside container), [./node-data](cci:7://file:///home/piadmin/docker_home/n8n-pytorch-cuda/node-data:0:0-0:0) (host mount)
+- **Workspace**: `/workspace` → `./` (project root)
+- **Python Scripts**: `/data/python-scripts/n8n-python-tools/`
+- **External Projects**: `/data/crib-correspondent-video-creation`, `/data/kodi-mcp`
+
+## Running Commands
+**ALWAYS execute Python scripts inside the container:**
+```bash
+docker exec -it n8n-pytorch-cuda-pytorch-n8n-1 bash
+cd /data/python-scripts/n8n-python-tools
+python app.py <command>

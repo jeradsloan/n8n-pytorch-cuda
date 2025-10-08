@@ -20,6 +20,7 @@ services:
     volumes:
       - ./:/workspace
       - ./data:/data
+      - /home/piadmin/coding-projects/crib-correspondent-video-creation:/data/crib-correspondent-video-creation
       - /home/piadmin/coding-projects/kodi-mcp:/data/kodi-mcp
       - ./n8n-data:/root/.n8n
       - ./node-data:/home/node/.n8n

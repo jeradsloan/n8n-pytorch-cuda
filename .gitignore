@@ -35,3 +35,9 @@ credentials.csv
 # Ignore backup and data files
 *.tar.gz
 html/
+
+# Large installer files
+Miniconda3-latest-Linux-x86_64.sh
+
+# Node modules
+node_modules/
